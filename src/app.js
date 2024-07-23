@@ -7,6 +7,7 @@ import socketChat from './listener/socketChat.js'
 import connectDB from './config/db.js'
 import { appConfig, passportConfig, sessionConfig } from './config/app.config.js'
 import { initializeRoutes } from './routes/index.js'
+import errorHandler from './middlewares/errorHandler.js'
 
 dotenv.config()
 
@@ -22,6 +23,8 @@ const startServer = async () => {
         passportConfig(app)
 
         initializeRoutes(app)
+
+        app.use(errorHandler)
 
         const httpServer = app.listen(PORT, console.log(`Server running on: http://localhost:${PORT}`))
 
